@@ -1,0 +1,80 @@
+#include <iostream>
+using namespace std;
+
+void printArray(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
+
+void sortDown(int arr[], int start, int end) {
+    for (int i = start; i < end; i++) {
+        for (int j = start; j < end - (i - start); j++) {
+            if (arr[j] < arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+void sortUp(int arr[], int start, int end) {
+    for (int i = start; i < end; i++) {
+        for (int j = start; j < end - (i - start); j++) {
+            if (arr[j] > arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+int main() {
+    srand(time(0));
+
+    const int SIZE = 20;
+    int arr[SIZE];
+    int max = 20;
+    int min = 1;
+
+    for (int i = 0; i < SIZE; i++) {
+        arr[i] = rand() % (max - min + 1) + min;
+    }
+
+    cout << "original array: ";
+    printArray(arr, SIZE);
+
+    int random = rand() % (max - min + 1) + min;
+    cout << "random value: " << random << endl;
+
+    int elementIndex = -1;
+    for (int i = 0; i < SIZE; i++) {
+        if (arr[i] == random) {
+            elementIndex = i;
+            break;
+        }
+    }
+
+    if (elementIndex == -1) {
+        cout << "not found, invalid!!!" << endl;
+        return 0;
+    }
+
+    cout << "found element at index: " << elementIndex << endl;
+
+    if (elementIndex > 0) {
+        sortDown(arr, 0, elementIndex);
+    }
+
+    if (elementIndex < SIZE - 1) {
+        sortUp(arr, elementIndex + 1, SIZE);
+    }
+
+    cout << "sorted array: ";
+    printArray(arr, SIZE);
+
+    return 0;
+}
