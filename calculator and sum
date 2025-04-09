@@ -1,0 +1,76 @@
+#include <iostream>
+using namespace std;
+
+double getSum(double a, double b) {
+    return a + b;
+}
+
+double getMul(double a, double b) {
+    return a * b;
+}
+
+double getDiff(double a, double b) {
+    return a - b;
+}
+
+double getDiv(double a, double b) {
+    return a / b;
+}
+
+void sumArrays(int* A, int* B, int* C, int size) {
+    for (int i = 0; i < size; ++i) {
+        *(C + i) = *(A + i) + *(B + i);
+    }
+}
+
+int main() {
+
+    cout << "task 1 calculator\n";
+    cout << "1 - sum\n2 - multiply\n3 - subtract\n4 - divide\n";
+
+    int choice;
+    cin >> choice;
+
+    double a, b;
+    cout << "enter two numbers: ";
+    cin >> a >> b;
+
+    double (*operations[4])(double, double) = { getSum, getMul, getDiff, getDiv };
+    double result = operations[choice - 1](a, b);
+    cout << "result: " << result << "\n";
+
+    cout << "\ntask 2 array sum\n";
+    int size;
+    cout << "enter array size: ";
+    cin >> size;
+
+    int* A = new int[size];
+    int* B = new int[size];
+    int* C = new int[size];
+
+    cout << "enter elements of array a:\n";
+    for (int i = 0; i < size; ++i) {
+        cout << "a[" << i << "] = ";
+        cin >> *(A + i);
+    }
+
+    cout << "enter elements of array b:\n";
+    for (int i = 0; i < size; ++i) {
+        cout << "b[" << i << "] = ";
+        cin >> *(B + i);
+    }
+
+    sumArrays(A, B, C, size);
+
+    cout << "array c (a + b): ";
+    for (int i = 0; i < size; ++i) {
+        cout << *(C + i) << " ";
+    }
+    cout << endl;
+
+    delete[] A;
+    delete[] B;
+    delete[] C;
+
+    return 0;
+}
