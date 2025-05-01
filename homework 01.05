@@ -1,0 +1,84 @@
+#include <iostream>
+#include <cstring>
+#include <cctype>
+#include <sstream>
+using namespace std;
+
+char* createStr(const char* source) {
+    char* str = new char[strlen(source) + 1];
+    strcpy(str, source);
+    return str;
+}
+
+int count(const char* str) {
+    int count = 0;
+    while (*str) {
+        if (isdigit(*str)) count++;
+        str++;
+    }
+    return count;
+}
+
+int countWords(const char* str, const char* word) {
+    int count = 0;
+    stringstream ss(str);
+    string current;
+
+    while (ss >> current) {
+        if (current == word) {
+            count++;
+        }
+    }
+
+    return count;
+}
+
+int countSentences(const char* str) {
+    int count = 0;
+    while (*str) {
+        if (*str == '.' || *str == '!' || *str == '?') count++;
+        str++;
+    }
+    return count;
+}
+
+int countDotsAndCommas(const char* str) {
+    int count = 0;
+    while (*str) {
+        if (*str == '.' || *str == ',') count++;
+        str++;
+    }
+    return count;
+}
+
+void reverseText(char* str) {
+    int len = strlen(str);
+    for (int i = 0; i < len / 2; i++) {
+        swap(str[i], str[len - 1 - i]);
+    }
+}
+
+int main() {
+    const char* input = "hi this is Liza Halperina and i'm doing my homework, wish me luck:))";
+    char* str = createStr(input);
+
+    cout << "original string:\n" << str << endl;
+
+    cout << "\ndigits count: " << count(str);
+
+    char word[100];
+    cout << "\n\nenter word to search: ";
+    cin.getline(word, 100);
+
+    cout << "occurrences of \"" << word << "\": " << countWords(str, word);
+
+    cout << "\nsentences count: " << countSentences(str);
+    cout << "\ndots and commas count: " << countDotsAndCommas(str);
+
+    reverseText(str);
+    cout << "\n\nreversed text:\n" << str << endl;
+
+    delete[] str;
+    return 0;
+}
+
