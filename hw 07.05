@@ -1,0 +1,42 @@
+  Created by Лиза on 07.05.2025.
+//
+
+#include <iostream>
+using namespace std;
+int main() {
+   
+    cout << "task 2\n";
+
+    string str;
+    cout << "enter row from 10 little symbols ";
+    cin >> str;
+
+    if (str.length() != 10) {
+        cout << "10 symbols correctly, invalid!!!!!\n";
+        return 1;
+    }
+
+    sort(str.begin(), str.end());
+    cout << "sorted row: " << str << "\n";
+
+    cout << "task 3\n";
+
+    string input;
+    cout << "enter row of 10 latin letters: ";
+    cin >> input;
+
+    int maxLen = 1, currentLen = 1;
+
+    for (size_t i = 1; i < input.length(); ++i) {
+        if (input[i] == input[i - 1]) {
+            ++currentLen;
+            maxLen = max(maxLen, currentLen);
+        } else {
+            currentLen = 1;
+        }
+    }
+
+    cout << "the max length of same symbols: " << maxLen << "\n";
+
+    return 0;
+}
