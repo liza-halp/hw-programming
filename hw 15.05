@@ -1,0 +1,124 @@
+//  Created by Лиза on 14.05.2025.
+//
+#include <iostream>
+
+using namespace std;
+
+struct WashingMachine {
+    char brand[70];
+    char color[20];
+    double length;
+    double height;
+    int power;
+    int spinSpeed;
+};
+
+struct Iron {
+    char brand[70];
+    char model[70];
+    char color[20];
+    int power;
+    int minTemperature;
+    int maxTemperature;
+    bool steamFunction;
+};
+
+struct Boiler {
+    char brand[50];
+    char model[50];
+    char color[20];
+    int power;
+    double volume;
+    int heatingTemperature;
+};
+
+struct Date {
+    int day;
+    int month;
+    int year;
+};
+
+struct Animal {
+    char name[50];
+    char animalClass[20];
+    char nickname[50];
+    Date birthday;
+};
+
+bool isEqual(const char* a, const char* b) {
+    int i = 0;
+    while (a[i] != '\0' && b[i] != '\0') {
+        if (a[i] != b[i]) return false;
+        i++;
+    }
+    return a[i] == b[i];
+}
+
+void fillAnimal(Animal& animal) {
+    
+    cout << "enter animal class: ";
+    cin >> animal.animalClass;
+    cout << "enter animal nickname: ";
+    cin >> animal.nickname;
+    cout << "enter birthday day: ";
+    cin >> animal.birthday.day;
+    cout << "enter birthday month: ";
+    cin >> animal.birthday.month;
+    cout << "enter birthday year: ";
+    cin >> animal.birthday.year;
+}
+
+void displayAnimal(const Animal& animal) {
+    cout << "animal info:" << endl;
+    cout << "class: " << animal.animalClass << endl;
+    cout << "nickname: " << animal.nickname << endl;
+    cout << "birthday: " << animal.birthday.day << "." << animal.birthday.month << "." << animal.birthday.year << endl;
+}
+
+void makeSound(const Animal& animal) {
+    if (isEqual(animal.animalClass, "dog")) {
+        cout << animal.nickname << " says: woof!" << endl;
+    } else if (isEqual(animal.animalClass, "cat")) {
+        cout << animal.nickname << " says: meow!" << endl;
+    } else {
+        cout << animal.nickname << " says: grrr!" << endl;
+    }
+}
+
+int main() {
+    WashingMachine wm = {"samsung", "white", 70.0, 70.0, 1900, 1100};
+    cout << "washing machine info:" << endl;
+    cout << "brand: " << wm.brand << endl;
+    cout << "color: " << wm.color << endl;
+    cout << "power: " << wm.power << " w" << endl;
+    cout << "spin speed: " << wm.spinSpeed << " rpm" << endl;
+    cout << "dimensions (l x h): " << wm.length << " x " << wm.height << " cm" << endl;
+    cout << endl;
+
+    Iron iron = {"philips", "zx-pro2025", "blue", 2400, 120, 220, true};
+    cout << "iron info:" << endl;
+    cout << "brand: " << iron.brand << endl;
+    cout << "model: " << iron.model << endl;
+    cout << "color: " << iron.color << endl;
+    cout << "power: " << iron.power << " w" << endl;
+    cout << "temperature: " << iron.minTemperature << "°c - " << iron.maxTemperature << "°c" << endl;
+    cout << "steam function: " << (iron.steamFunction ? "yes" : "no") << endl;
+    cout << endl;
+
+    Boiler boiler = {"ariston", "turbo-5000x", "silver", 1500, 50.0, 75};
+    cout << "boiler info:" << endl;
+    cout << "brand: " << boiler.brand << endl;
+    cout << "model: " << boiler.model << endl;
+    cout << "color: " << boiler.color << endl;
+    cout << "power: " << boiler.power << " w" << endl;
+    cout << "volume: " << boiler.volume << " liters" << endl;
+    cout << "heating temperature: " << boiler.heatingTemperature << "°c" << endl;
+    cout << endl;
+
+    Animal animal;
+    fillAnimal(animal);
+    displayAnimal(animal);
+    makeSound(animal);
+
+    return 0;
+}
