@@ -1,0 +1,136 @@
+#include <iostream>
+using namespace std;
+
+void sortSurnames() {
+    const int totalSurnames = 5;
+    char surnames[totalSurnames][100];
+
+    cout << "enter 5 surnames:\n";
+    for (int i = 0; i < totalSurnames; ++i) {
+        cout << i + 1 << ": ";
+        cin >> surnames[i];
+    }
+
+    for (int i = 0; i < totalSurnames - 1; ++i) {
+        for (int j = i + 1; j < totalSurnames; ++j) {
+            if (strcmp(surnames[i], surnames[j]) > 0) {
+                char temp[100];
+                strcpy(temp, surnames[i]);
+                strcpy(surnames[i], surnames[j]);
+                strcpy(surnames[j], temp);
+            }
+        }
+    }
+
+    cout << "sorted surnames:\n";
+    for (int i = 0; i < totalSurnames; ++i) {
+        cout << surnames[i] << endl;
+    }
+}
+
+void analyzeMatrices() {
+    int rowsA, colsA, rowsB, colsB, rowsC, colsC;
+    cout << "enter size for matrix a: "; cin >> rowsA >> colsA;
+    cout << "enter size for matrix b: "; cin >> rowsB >> colsB;
+    cout << "enter size for matrix c: "; cin >> rowsC >> colsC;
+
+    int matrixA[100][100], matrixB[100][100], matrixC[100][100];
+    int allValues[30000], allCount = 0;
+
+    cout << "enter matrix a:\n";
+    for (int i = 0; i < rowsA; ++i)
+        for (int j = 0; j < colsA; ++j) {
+            cin >> matrixA[i][j];
+            allValues[allCount++] = matrixA[i][j];
+        }
+
+    cout << "enter matrix b:\n";
+    for (int i = 0; i < rowsB; ++i)
+        for (int j = 0; j < colsB; ++j) {
+            cin >> matrixB[i][j];
+            allValues[allCount++] = matrixB[i][j];
+        }
+
+    cout << "enter matrix c:\n";
+    for (int i = 0; i < rowsC; ++i)
+        for (int j = 0; j < colsC; ++j) {
+            cin >> matrixC[i][j];
+            allValues[allCount++] = matrixC[i][j];
+        }
+
+    int commonABC[10000], commonCount = 0;
+    for (int i = 0; i < allCount; ++i) {
+        int duplicateCount = 0;
+        for (int j = 0; j < allCount; ++j)
+            if (allValues[i] == allValues[j])
+                duplicateCount++;
+        if (duplicateCount >= 3) {
+            bool exists = false;
+            for (int k = 0; k < commonCount; ++k)
+                if (commonABC[k] == allValues[i])
+                    exists = true;
+            if (!exists)
+                commonABC[commonCount++] = allValues[i];
+        }
+    }
+
+    int uniqueValues[30000], uniqueCount = 0;
+    for (int i = 0; i < allCount; ++i) {
+        bool exists = false;
+        for (int j = 0; j < uniqueCount; ++j)
+            if (uniqueValues[j] == allValues[i])
+                exists = true;
+        if (!exists)
+            uniqueValues[uniqueCount++] = allValues[i];
+    }
+
+    int commonAC[10000], commonACCount = 0;
+    for (int i = 0; i < rowsA; ++i)
+        for (int j = 0; j < colsA; ++j)
+            for (int x = 0; x < rowsC; ++x)
+                for (int y = 0; y < colsC; ++y)
+                    if (matrixA[i][j] == matrixC[x][y]) {
+                        bool exists = false;
+                        for (int k = 0; k < commonACCount; ++k)
+                            if (commonAC[k] == matrixA[i][j])
+                                exists = true;
+                        if (!exists)
+                            commonAC[commonACCount++] = matrixA[i][j];
+                    }
+
+    int negativeValues[30000], negativeCount = 0;
+    for (int i = 0; i < allCount; ++i) {
+        if (allValues[i] < 0) {
+            bool exists = false;
+            for (int j = 0; j < negativeCount; ++j)
+                if (negativeValues[j] == allValues[i])
+                    exists = true;
+            if (!exists)
+                negativeValues[negativeCount++] = allValues[i];
+        }
+    }
+
+    cout << "\ncommon values for a, b, c: ";
+    for (int i = 0; i < commonCount; ++i)
+        cout << commonABC[i] << " ";
+
+    cout << "\nunique values: ";
+    for (int i = 0; i < uniqueCount; ++i)
+        cout << uniqueValues[i] << " ";
+
+    cout << "\ncommon values for a and c: ";
+    for (int i = 0; i < commonACCount; ++i)
+        cout << commonAC[i] << " ";
+
+    cout << "\nnegative values: ";
+    for (int i = 0; i < negativeCount; ++i)
+        cout << negativeValues[i] << " ";
+
+    cout << endl;
+}
+
+int main() {
+    sortSurnames();
+    analyzeMatrices();
+    return 0;
+}
