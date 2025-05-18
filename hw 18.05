@@ -1,0 +1,89 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+struct Student {
+    char name[60];
+    unsigned short age;
+    float averageGrade;
+};
+
+void task1() {
+    const int n = 3;
+    Student st[n];
+
+    for (int i = 0; i < n; ++i) {
+        cout << "name: ";
+        cin.getline(st[i].name, 50);
+        cout << "age: ";
+        cin >> st[i].age;
+        cout << "average grade: ";
+        cin >> st[i].averageGrade;
+        cin.ignore();
+    }
+
+    int best = 0;
+    cout << "\nstudents:\n";
+    for (int i = 0; i < n; ++i) {
+        cout << st[i].name << ", " << st[i].age << ", " << st[i].averageGrade << '\n';
+        if (st[i].averageGrade > st[best].averageGrade) best = i;
+    }
+    cout << "\nbest: " << st[best].name << " " << st[best].averageGrade << "\n\n";
+}
+
+struct Book {
+    char title[60];
+    char author[50];
+    unsigned short year;
+};
+
+void printAfterYear(Book* b, int n, unsigned short y) {
+    cout << "\nbooks after " << y << ":\n";
+    for (int i = 0; i < n; ++i)
+        if (b[i].year > y)
+            cout << b[i].title << " - " << b[i].author << " (" << b[i].year << ")\n";
+    cout << '\n';
+}
+
+void task2() {
+    const int m = 5;
+    Book bk[m];
+
+    for (int i = 0; i < m; ++i) {
+        cout << "title: ";
+        cin.getline(bk[i].title, 60);
+        cout << "author: ";
+        cin.getline(bk[i].author, 40);
+        cout << "year: ";
+        cin >> bk[i].year;
+        cin.ignore();
+    }
+
+    unsigned short limit;
+    cout << "\nyear limit: ";
+    cin >> limit;
+    printAfterYear(bk, m, limit);
+}
+
+struct Rectangle {
+    float width;
+    float height;
+};
+
+float area(const Rectangle& r) { return r.width * r.height; }
+
+void task3() {
+    Rectangle r;
+    cout << "width: ";
+    cin >> r.width;
+    cout << "height: ";
+    cin >> r.height;
+    cout << "area: " << area(r) << '\n';
+}
+
+int main() {
+    task1();
+    task2();
+    task3();
+    return 0;
+}
