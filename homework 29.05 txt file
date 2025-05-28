@@ -1,0 +1,52 @@
+#include <iostream>
+using namespace std;
+int main() {
+    ifstream inputFile("input.txt");
+    ofstream outputFile("output.txt");
+
+    if (!inputFile || !outputFile) {
+        cout << "file error" << endl;
+        return 1;
+    }
+
+    char ch;
+    int totalCharacters = 0;
+    int totalLines = 0;
+    int vowelCount = 0;
+    int consonantCount = 0;
+    int digitCount = 0;
+
+    while (inputFile.get(ch)) {
+        totalCharacters++;
+
+        if (ch == '\n') {
+            totalLines++;
+        }
+
+        if (isdigit(ch)) {
+            digitCount++;
+        } else if (isalpha(ch)) {
+            char lowerChar = tolower(ch);
+            if (lowerChar == 'a' || lowerChar == 'e' || lowerChar == 'i' || lowerChar == 'o' || lowerChar == 'u') {
+                vowelCount++;
+            } else {
+                consonantCount++;
+            }
+        }
+    }
+
+    if (totalCharacters > 0 && ch != '\n') {
+        totalLines++;
+    }
+
+    outputFile << "characters: " << totalCharacters << endl;
+    outputFile << "lines: " << totalLines << endl;
+    outputFile << "vowels: " << vowelCount << endl;
+    outputFile << "consonants: " << consonantCount << endl;
+    outputFile << "digits: " << digitCount << endl;
+
+    inputFile.close();
+    outputFile.close();
+
+    return 0;
+}
